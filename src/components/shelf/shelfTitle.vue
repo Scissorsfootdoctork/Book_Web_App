@@ -2,10 +2,10 @@
     <transition name="fade">
         <div class="shelf-title" v-show="shelfTitleVisible" :class="{'hide-shadow':ifHideShadow}">
             <div class="shelf-text-wrapper">
-                <span class="shelf-title-text">{{$t('shelf.title')}}</span>
+                <span class="shelf-title-text">{{title}}</span>
                 <span class="shelf-title-sub-text" v-show="isEditMode">{{selectedText}}</span>
             </div>
-            <div class="shelf-title-btn-wrapper shelf-title-left">
+            <div class="shelf-title-btn-wrapper shelf-title-left" v-if="!showBack">
                 <div class="shelf-title-btn-text" @click="clearCache()">
                     {{this.$t('shelf.clearCache')}}
                 </div>
@@ -15,21 +15,36 @@
                     {{ isEditMode ? this.$t('shelf.cancel') : this.$t('shelf.edit')}}
                 </div>
             </div>
+            <div class="shelf-title-btn-wrapper shelf-title-left" v-if="showBack">
+                <span class="icon-back" @click="back"></span>
+            </div>
         </div>
     </transition>
 </template>
 
 <script>
     import { storeShelfMixin } from '../../utils/mixin'
+    import { clearLocalStorage } from '../../utils/localstorage'
+    import { clearLocalForage } from '../../utils/localForage'
 
     export default {
         mixins: [storeShelfMixin],
         name: 'shelfTitle',
+        props: {
+            title: {
+                type: String
+            },
+            showBack: {
+                type: Boolean,
+                default: false
+            }
+        },
         computed: {
             selectedText() {
                 const selectedNumber = this.shelfSelected ? this.shelfSelected.length : 0
                 return selectedNumber <= 0 ? this.$t('shelf.selectBook') : (selectedNumber === 1 ? this.$t(
-                      'shelf.haveSelectedBook').replace('$1', selectedNumber) : this.$t('shelf.haveSelectedBooks').replace('$1', selectedNumber))
+                      'shelf.haveSelectedBook').replace('$1', selectedNumber) : this.$t('shelf.haveSelectedBooks')
+                .replace('$1', selectedNumber))
             }
         },
         watch: {
@@ -47,6 +62,9 @@
             }
         },
         methods: {
+            back() {
+                this.$router.go(-1)
+            },
             onEditClick() {
                 if (!this.isEditMode) {
                     this.setShelfSelected([])
@@ -59,7 +77,14 @@
                 this.setIsEditMode(!this.isEditMode)
             },
             clearCache() {
-                alert('clear cache')
+                clearLocalStorage()
+                clearLocalForage()
+                this.setShelfList([])
+                this.setShelfSelected([])
+                console.log('1')
+                this.getShelfList()
+                console.log('2')
+                this.simpleToast(this.$t('shelf.clearCacheSuccess'))
             }
         }
     }
@@ -67,6 +92,11 @@
 
 <style scoped lang="scss">
     @import "../../assets/styles/global";
+
+    .icon-back {
+        font-size: px2rem(20);
+        color: #666666;
+    }
 
     .shelf-title {
         z-index: 130;

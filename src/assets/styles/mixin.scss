@@ -17,6 +17,16 @@ $animationType: linear;
   font-weight: bold;
 }
 
+@mixin scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @mixin top {
   display: flex;
   justify-content: center;

@@ -19,8 +19,6 @@
     import Scroll from '../../components/common/scroll'
     import ShelfSearch from '../../components/shelf/shelfSearch'
     import ShelfList from '../../components/shelf/shelfList'
-    import { shelf } from '../../api/store'
-    import { appendAddToShelf } from '../../utils/store'
     import ShelfFooter from '../../components/shelf/shelfFooter'
 
     export default {
@@ -47,11 +45,6 @@
             }
         },
         methods: {
-            getShelfList() {
-                shelf().then(res => {
-                    this.setShelfList(appendAddToShelf(res.data.bookList))
-                })
-            },
             // 滚动页面的监听事件，ShelfTitle和ShelfSearch组件会进行监听
             onScroll(offsetY) {
                 this.setOffsetY(offsetY)
@@ -60,11 +53,11 @@
         mounted() {
             this.getShelfList()
             // 获取书架列表数据
-            // this.getShelfList()
-            // // 初始化书架分类数据
-            // this.setShelfCategory([])
-            // // 设置vuex的currentType为1，表示当前位于书架，影响ShelfTitle状态
-            // this.setCurrentType(1)
+            this.getShelfList()
+            // 初始化书架分类数据
+            this.setShelfCategory([])
+            // 设置vuex的currentType为1，表示当前位于书架，影响ShelfTitle状态
+            this.setCurrentType(1)
         }
     }
 </script>

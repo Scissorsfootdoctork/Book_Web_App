@@ -5,9 +5,17 @@ const store = {
         isEditMode: false,
         shelfList: [],
         shelfSelected: [],
-        shelfTitleVisible: true
+        shelfTitleVisible: true,
+        shelfCategory: [],
+        currentType: 1
     },
     mutations: {
+        SET_SHELF_CATEGORY(state, category) {
+            state.shelfCategory = category
+        },
+        SET_CURRENT_TYPE(state, type) {
+            state.currentType = type
+        },
         Shelf_List_ClearChooseState(state) {
             state.shelfList.forEach((item) => {
                 item.selected = false

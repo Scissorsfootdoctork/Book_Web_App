@@ -1,6 +1,6 @@
 <template>
-    <div class="shelf-list">
-        <div class="shelf-list-item-wrapper" v-for="(item, index) in shelfList" :key="index">
+    <div class="shelf-list" :style="{top: shelfListTop}">
+        <div class="shelf-list-item-wrapper" v-for="(item, index) in List" :key="index">
             <shelf-item :data="item" :style="{height: itemHeight}"></shelf-item>
             <div class="shelf-list-title-wrapper">
                 <span class="shelf-list-title title-small">
@@ -27,6 +27,9 @@
             data: Array
         },
         computed: {
+            List() {
+                return this.data && this.data.length > 0 ? this.data : this.shelfList
+            },
             shelfListTop() {
                 return px2rem(this.top) + 'rem'
             },
@@ -47,9 +50,9 @@
         left: 0;
         z-index: 100;
         width: 100%;
+
         display: flex;
         flex-flow: row wrap;
-        width: 100%;
         padding: 0 px2rem(15);
         box-sizing: border-box;
 
@@ -58,14 +61,6 @@
             width: 33.33%;
             padding: px2rem(15);
             box-sizing: border-box;
-
-            &.list-leave-active {
-                display: none;
-            }
-
-            &.list-move {
-                transition: transform .5s;
-            }
 
             .shelf-list-title-wrapper {
                 margin-top: px2rem(10);

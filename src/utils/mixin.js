@@ -5,8 +5,14 @@ import {
     removeAllCss,
     getReadTimeByMinute
 } from './book.js'
-import { saveLocation, getBookmark } from './localstorage.js'
-import { gotoBookDetail } from './store'
+import {
+    saveLocation,
+    getBookmark,
+    getBookShelf,
+    saveBookShelf
+} from './localstorage.js'
+import { appendAddToShelf, gotoBookDetail } from './store'
+import { shelf } from '../api/store'
 
 export const ebookMinx = {
     computed: {
@@ -146,7 +152,9 @@ export const storeShelfMixin = {
             'isEditMode',
             'shelfList',
             'shelfSelected',
-            'shelfTitleVisible'
+            'shelfTitleVisible',
+            'currentType',
+            'shelfCategory'
         ])
     },
     methods: {
@@ -156,10 +164,33 @@ export const storeShelfMixin = {
             'setShelfSelected',
             'setShelfTitleVisible',
             'setOffsetY',
-            'ClearChooseState'
+            'ClearChooseState',
+            'setCurrentType',
+            'setShelfCategory'
         ]),
+        getCategoryList(title) {
+            this.getShelfList().then(() => {
+                const categoryList = this.shelfList.filter(book => book.type === 2 && book.title === title)[0]
+                this.setShelfCategory(categoryList)
+            })
+        },
         showBookDetail(book) {
             gotoBookDetail(this, book)
+        },
+        getShelfList() {
+            let shelfList = getBookShelf()
+            if (!shelfList) {
+                shelf().then(response => {
+                    if (response.status === 200 && response.data &&
+                          response.data.bookList) {
+                        shelfList = appendAddToShelf(response.data.bookList)
+                        saveBookShelf(shelfList)
+                        return this.setShelfList(shelfList)
+                    }
+                })
+            } else {
+                return this.setShelfList(shelfList)
+            }
         }
     }
 }
