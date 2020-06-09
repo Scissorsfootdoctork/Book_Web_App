@@ -13,35 +13,35 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    title: String,
-    showShelf: {
-      type: Boolean,
-      default: true
-    }
-  },
-  data () {
-    return {
-      ifHideShadow: true
-    }
-  },
-  methods: {
-    showBookShelf () {
-      this.$router.push('/store/shelf')
+<script type="text/ecmascript-6">
+  export default {
+    props: {
+      title: String,
+      showShelf: {
+        type: Boolean,
+        default: true
+      }
     },
-    showShadow () {
-      this.ifHideShadow = false
+    data() {
+      return {
+        ifHideShadow: true
+      }
     },
-    hideShadow () {
-      this.ifHideShadow = true
-    },
-    back () {
-      this.$emit('back')
+    methods: {
+      showBookShelf() {
+        this.$router.push('/book-store/shelf')
+      },
+      showShadow() {
+        this.ifHideShadow = false
+      },
+      hideShadow() {
+        this.ifHideShadow = true
+      },
+      back() {
+        this.$emit('back')
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

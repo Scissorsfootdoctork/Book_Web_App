@@ -10,8 +10,8 @@
           </div>
           <div class="img-wrapper">
             <div class="img-group">
-              <img class="img" :src="item.img1">
-              <img class="img2" :src="item.img2">
+              <img class="img" v-lazy="item.img1">
+              <img class="img2" v-lazy="item.img2">
             </div>
           </div>
         </div>
@@ -20,35 +20,35 @@
   </div>
 </template>
 
-<script>
-import TitleView from './Title'
-import { categoryText, getCategoryName } from '../../utils/store'
+<script type="text/ecmascript-6">
+  import TitleView from '@/components/home/title'
+  import { categoryText, getCategoryName } from '@/utils/book'
 
-export default {
-  components: {
-    TitleView
-  },
-  props: {
-    data: Array
-  },
-  methods: {
-    showBookCategory (item) {
-      this.$router.push({
-        path: '/store/list',
-        query: {
-          category: getCategoryName(item.category),
-          categoryText: this.categoryText(item.category)
-        }
-      })
+  export default {
+    components: {
+      TitleView
     },
-    categoryText (category) {
-      return categoryText(category, this)
+    props: {
+      data: Array
     },
-    showBookList () {
-      this.$router.push('/store/list')
+    methods: {
+      showBookCategory(item) {
+        this.$router.push({
+          path: '/book-store/list',
+          query: {
+            category: getCategoryName(item.category),
+            categoryText: this.categoryText(item.category)
+          }
+        })
+      },
+      categoryText(category) {
+        return categoryText(category, this)
+      },
+      showBookList() {
+        this.$router.push('/book-store/list')
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

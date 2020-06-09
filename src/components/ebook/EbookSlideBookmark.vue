@@ -2,12 +2,7 @@
   <div class="ebook-slide-bookmark">
     <div class="slide-bookmark-title">{{$t('book.bookmark')}} · {{bookmark ? bookmark.length : 0}}</div>
     <scroll class="slide-bookmark-list" :top="48" :bottom="48">
-      <div
-        class="slide-bookmark-item"
-        v-for="(item, index) in bookmark"
-        :key="index"
-        @click="displayBookmark(item.cfi)"
-      >
+      <div class="slide-bookmark-item" v-for="(item, index) in bookmark" :key="index" @click="display(item.cfi)">
         <div class="slide-bookmark-item-icon">
           <div class="icon-bookmark"></div>
         </div>
@@ -17,40 +12,32 @@
   </div>
 </template>
 
-<script>
-import Scroll from '../../components/common/scroll.vue'
-import { getBookmark } from '../../utils/localstorage.js'
-import { ebookMinx } from '../../utils/mixin'
+<script type="text/ecmascript-6">
+  import Scroll from '@/components/Scroll'
+  import { getBookmark } from '@/utils/localStorage'
+  import { ebookMixin } from '@/utils/mixin'
 
-export default {
-  mixins: [ebookMinx],
-  components: {
-    Scroll
-  },
-  data () {
-    return {
-      bookmark: null
+  export default {
+    mixins: [ebookMixin],
+    components: {
+      Scroll
+    },
+    data() {
+      return {
+        bookmark: null
+      }
+    },
+    mounted() {
+      this.bookmark = getBookmark(this.fileName)
     }
-  },
-  methods: {
-    displayBookmark (target) {
-      this.display(target, () => {
-        this.hideTitleAndMenu()
-      })
-    }
-  },
-  mounted () {
-    this.bookmark = getBookmark(this.fileName)
   }
-}
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "../../assets/styles/global.scss";
+  @import "../../assets/styles/global";
 
   .ebook-slide-bookmark {
     width: 100%;
-
     .slide-bookmark-title {
       width: 100%;
       height: px2rem(48);
@@ -60,20 +47,16 @@ export default {
       box-sizing: border-box;
       @include left;
     }
-
     .slide-bookmark-list {
       padding: 0 px2rem(15);
       box-sizing: border-box;
-
       .slide-bookmark-item {
         display: flex;
         padding: px2rem(15) 0;
         box-sizing: border-box;
-
         .slide-bookmark-item-icon {
           flex: 0 0 px2rem(29);
           @include left;
-
           .icon-bookmark {
             width: px2rem(20);
             height: px2rem(20);
@@ -83,7 +66,6 @@ export default {
             @include center;
           }
         }
-
         .slide-bookmark-item-text {
           font-size: px2rem(14);
           line-height: px2rem(15);

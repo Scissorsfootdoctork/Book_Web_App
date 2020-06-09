@@ -1,22 +1,33 @@
 <template>
   <div class="home-title-wrapper">
     <div class="label">{{label}}</div>
-    <div class="btn" @click="click">{{btn}}</div>
+    <div class="btn" :class="{'touch': ifOnTouch}" @touchstart="onTouchStart" @touchend="onTouchEnd" @mousedown="onTouchStart" @mouseup="onTouchEnd" @click="click">{{btn}}</div>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    label: String,
-    btn: String
-  },
-  methods: {
-    click () {
-      this.$emit('onClick')
+<script type="text/ecmascript-6">
+  export default {
+    props: {
+      label: String,
+      btn: String
+    },
+    data() {
+      return {
+        ifOnTouch: false
+      }
+    },
+    methods: {
+      onTouchStart() {
+        this.ifOnTouch = true
+      },
+      onTouchEnd() {
+        this.ifOnTouch = false
+      },
+      click() {
+        this.$emit('onClick')
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
@@ -35,7 +46,7 @@ export default {
     .btn {
       font-size: px2rem(14);
       color: rgba(64, 158, 255, 1);
-      &:active {
+      &.touch {
         color: rgba(64, 158, 255, .5);
       }
     }

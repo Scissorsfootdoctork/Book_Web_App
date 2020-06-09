@@ -1,9 +1,11 @@
+import { realPx } from '../../utils/utils'
+
 const book = {
   state: {
     fileName: '',
     menuVisible: false,
-    settingVisible: -1, // -1:不显示，0:字号显示，1:主题显示，2：进度，3:目录
-    defultFontSize: 16,
+    settingVisible: -1,
+    defaultFontSize: 16,
     defaultFontFamily: 'Default',
     fontFamilyVisible: false,
     defaultTheme: 'Default',
@@ -18,67 +20,71 @@ const book = {
     paginate: '',
     pagelist: null,
     offsetY: 0,
-    isBookmark: null
+    isBookmark: null,
+    speakingIconBottom: realPx(58)
   },
   mutations: {
-    SET_fileName: (state, fileName) => {
+    'SET_FILENAME': (state, fileName) => {
       state.fileName = fileName
     },
-    SET_menuVisible: (state, menuVisible) => {
-      state.menuVisible = menuVisible
+    'SET_MENU_VISIBLE': (state, visible) => {
+      state.menuVisible = visible
     },
-    SET_settingVisible: (state, settingVisible) => {
-      state.settingVisible = settingVisible
+    'SET_SETTING_VISIBLE': (state, visible) => {
+      state.settingVisible = visible
     },
-    SET_defultFontSize: (state, defultFontSize) => {
-      state.defultFontSize = defultFontSize
+    'SET_DEFAULT_FONT_SIZE': (state, fontSize) => {
+      state.defaultFontSize = fontSize
     },
-    SET_defaultFontFamily: (state, font) => {
+    'SET_DEFAULT_FONT_FAMILY': (state, font) => {
       state.defaultFontFamily = font
     },
-    SET_fontFamilyVisible: (state, visible) => {
+    'SET_FONT_FAMILY_VISIBLE': (state, visible) => {
       state.fontFamilyVisible = visible
     },
-    SET_defaultTheme: (state, theme) => {
+    'SET_DEFAULT_THEME': (state, theme) => {
       state.defaultTheme = theme
     },
-    SET_bookAvailable: (state, bookAvailable) => {
+    'SET_BOOK_AVAILABLE': (state, bookAvailable) => {
       state.bookAvailable = bookAvailable
     },
-    SET_progress: (state, progress) => {
+    'SET_PROGRESS': (state, progress) => {
       state.progress = progress
     },
-    SET_section: (state, section) => {
+    'SET_SECTION': (state, section) => {
       state.section = section
     },
-    SET_isPaginating: (state, isPaginating) => {
+    'SET_IS_PAGINATING': (state, isPaginating) => {
       state.isPaginating = isPaginating
     },
-    SET_currentBook: (state, currentBook) => {
+    'SET_CURRENT_BOOK': (state, currentBook) => {
       state.currentBook = currentBook
     },
-    SET_navigation: (state, navigation) => {
+    'SET_NAVIGATION': (state, navigation) => {
       state.navigation = navigation
     },
-    SET_cover: (state, cover) => {
+    'SET_COVER': (state, cover) => {
       state.cover = cover
     },
-    SET_metadata: (state, metadata) => {
+    'SET_METADATA': (state, metadata) => {
       state.metadata = metadata
     },
-    SET_paginate: (state, paginate) => {
+    'SET_PAGINATE': (state, paginate) => {
       state.paginate = paginate
     },
-    SET_pagelist: (state, pagelist) => {
+    'SET_PAGELIST': (state, pagelist) => {
       state.pagelist = pagelist
     },
-    SET_offsetY: (state, offsetY) => {
+    'SET_OFFSETY': (state, offsetY) => {
       state.offsetY = offsetY
     },
-    SET_isBookmark: (state, isBookmark) => {
+    'SET_IS_BOOKMARK': (state, isBookmark) => {
       state.isBookmark = isBookmark
+    },
+    'SET_SPEAKING_ICON_BOTTOM': (state, speakingIconBottom) => {
+      state.speakingIconBottom = speakingIconBottom
     }
-  },
-  actions: {}
+  }
 }
+
 export default book

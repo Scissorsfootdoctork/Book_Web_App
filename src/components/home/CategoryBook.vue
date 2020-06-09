@@ -4,7 +4,7 @@
     <div class="category-book-list">
       <div class="category-book-item" v-for="(item, index) in data.list" :key="index" @click="showBookDetail(item)">
         <div class="img-wrapper">
-          <img class="img" :src="item.cover">
+          <img class="img" v-lazy="item.cover">
         </div>
         <div class="content-wrapper">
           <div class="title title-small" ref="title">{{item.title}}</div>
@@ -15,34 +15,34 @@
   </div>
 </template>
 
-<script>
-import TitleView from './Title'
-import { categoryText, getCategoryName } from '../../utils/store'
-import { storeHomeMinx } from '../../utils/mixin'
+<script type="text/ecmascript-6">
+  import TitleView from '@/components/home/title'
+  import { categoryText, getCategoryName } from '@/utils/book'
+  import { ebookHome } from '../../utils/mixin'
 
-export default {
-  mixins: [storeHomeMinx],
-  components: {
-    TitleView
-  },
-  props: {
-    data: Object
-  },
-  methods: {
-    showBookCategory () {
-      this.$router.push({
-        path: '/store/list',
-        query: {
-          category: getCategoryName(this.data.category),
-          categoryText: this.categoryText(this.data.category)
-        }
-      })
+  export default {
+    mixins: [ebookHome],
+    components: {
+      TitleView
     },
-    categoryText (category) {
-      return categoryText(category, this)
+    props: {
+      data: Object
+    },
+    methods: {
+      showBookCategory() {
+        this.$router.push({
+          path: '/book-store/list',
+          query: {
+            category: getCategoryName(this.data.category),
+            categoryText: this.categoryText(this.data.category)
+          }
+        })
+      },
+      categoryText(category) {
+        return categoryText(category, this)
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

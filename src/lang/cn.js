@@ -44,6 +44,7 @@ const messages = {
     statistics: '统计学'
   },
   shelf: {
+    maybeMore: '往下看',
     title: '书架',
     edit: '编辑',
     cancel: '取消',
@@ -94,10 +95,10 @@ const messages = {
     startDownload: '开始下载...',
     progressDownload: '正在下载：$1',
     downloadFirst: '请先缓存图书',
-    welcome: '欢迎访问',
+    welcome: '你来啦！<br>这是我的webapp<br>--------  作者：erick  --------',
     find: '去找书',
     changeLanguage: '切换语言',
-    studyNow: '去'
+    studyNow: '去慕课网学习'
   },
   detail: {
     copyright: '版权',

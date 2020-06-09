@@ -4,7 +4,7 @@
     <div class="recommend-list">
       <div class="recommend-item" v-for="(item, index) in data" :key="index" @click="showBookDetail(item)">
         <div class="img-wrapper">
-          <img class="img" :src="item.cover">
+          <img class="img" v-lazy="item.cover">
         </div>
         <div class="content-wrapper">
           <div class="title title-medium" ref="title">{{item.title}}</div>
@@ -15,19 +15,19 @@
   </div>
 </template>
 
-<script>
-import TitleView from './Title'
-import { storeHomeMinx } from '../../utils/mixin'
+<script type="text/ecmascript-6">
+  import TitleView from '@/components/home/title'
+  import { ebookHome } from '../../utils/mixin'
 
-export default {
-  mixins: [storeHomeMinx],
-  components: {
-    TitleView
-  },
-  props: {
-    data: Array
+  export default {
+    mixins: [ebookHome],
+    components: {
+      TitleView
+    },
+    props: {
+      data: Array
+    }
   }
-}
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

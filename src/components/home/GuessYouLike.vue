@@ -4,7 +4,7 @@
     <div class="guess-you-like-list">
       <div class="guess-you-like-item" v-for="(item, index) in showData" :key="index" @click="showBookDetail(item)">
         <div class="img-wrapper">
-          <img class="img" :src="item.cover">
+          <img class="img" v-lazy="item.cover" :key="item.cover">
         </div>
         <div class="content-wrapper">
           <div class="title title-big" ref="title">{{item.title}}</div>
@@ -16,81 +16,81 @@
   </div>
 </template>
 
-<script>
-import TitleView from './Title'
-import { realPx } from '../../utils/utils'
-import { storeHomeMinx } from '../../utils/mixin'
+<script type="text/ecmascript-6">
+  import TitleView from '@/components/home/title'
+  import { realPx } from '@/utils/utils'
+  import { ebookHome } from '../../utils/mixin'
 
-export default {
-  mixins: [storeHomeMinx],
-  components: {
-    TitleView
-  },
-  props: {
-    data: Array
-  },
-  watch: {
-    data (v) {
-      this.total = v.length / 3
-    }
-  },
-  computed: {
-    width () {
-      return window.innerWidth - realPx(20) - realPx(60) + 'px'
+  export default {
+    mixins: [ebookHome],
+    components: {
+      TitleView
     },
-    showData () {
-      if (this.data) {
-        return [
-          this.data[this.index],
-          this.data[this.index + this.total],
-          this.data[this.index + this.total * 2]
-        ]
-      } else {
-        return []
-      }
-    }
-  },
-  data () {
-    return {
-      index: 0,
-      total: 0
-    }
-  },
-  methods: {
-    change () {
-      if (this.index + 1 >= this.total) {
-        this.index = 0
-      } else {
-        this.index++
+    props: {
+      data: Array
+    },
+    watch: {
+      data(v) {
+        this.total = v.length / 3
       }
     },
-    resultText (item) {
-      if (item && item.type && item.result) {
-        switch (item.type) {
-          case 1:
-            return this.$t('home.sameAuthor').replace('$1', item.result)
-          case 2:
-            return this.$t('home.sameReader').replace('$1', item.result)
-          case 3:
-            return this.$t('home.readPercent').replace('$1', item.percent).replace('$2', item.result)
+    computed: {
+      width() {
+        return window.innerWidth - realPx(20) - realPx(60) + 'px'
+      },
+      showData() {
+        if (this.data) {
+          return [
+            this.data[this.index],
+            this.data[this.index + this.total],
+            this.data[this.index + this.total * 2]
+          ]
+        } else {
+          return []
         }
       }
     },
-    resize () {
-      this.$nextTick(() => {
-        this.$refs.title.forEach(item => {
-          item.style.width = this.width
+    data() {
+      return {
+        index: 0,
+        total: 0
+      }
+    },
+    methods: {
+      change() {
+        if (this.index + 1 >= this.total) {
+          this.index = 0
+        } else {
+          this.index++
+        }
+      },
+      resultText(item) {
+        if (item && item.type && item.result) {
+          switch (item.type) {
+            case 1:
+              return this.$t('home.sameAuthor').replace('$1', item.result)
+            case 2:
+              return this.$t('home.sameReader').replace('$1', item.result)
+            case 3:
+              return this.$t('home.readPercent').replace('$1', item.percent).replace('$2', item.result)
+          }
+        }
+      },
+      resize() {
+        this.$nextTick(() => {
+          this.$refs.title.forEach(item => {
+            item.style.width = this.width
+          })
+          this.$refs.author.forEach(item => {
+            item.style.width = this.width
+          })
+          this.$refs.result.forEach(item => {
+            item.style.width = this.width
+          })
         })
-        this.$refs.author.forEach(item => {
-          item.style.width = this.width
-        })
-        this.$refs.result.forEach(item => {
-          item.style.width = this.width
-        })
-      })
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

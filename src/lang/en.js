@@ -44,6 +44,7 @@ const messages = {
     statistics: 'Statistics'
   },
   shelf: {
+    maybeMore: 'Look For Down',
     title: 'Book Shelf',
     edit: 'Edit',
     cancel: 'Cancel',
@@ -94,10 +95,10 @@ const messages = {
     startDownload: 'Start download...',
     progressDownload: 'Downloading：$1',
     downloadFirst: 'Please download book first',
-    welcome: 'Welcome to visit',
+    welcome: 'Welcome to here<br>this is my webapp<br>--------  Author: erick  --------',
     find: 'Go to book store',
     changeLanguage: 'Change Language',
-    studyNow: 'Learn'
+    studyNow: ''
   },
   detail: {
     copyright: 'Copyright',

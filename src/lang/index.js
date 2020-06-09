@@ -1,23 +1,24 @@
 import Vue from 'vue'
-import VueI18N from 'vue-i18n'
-import EN from './en.js'
-import CN from './cn.js'
-import {
-  getLocale,
-  saveLocale
-} from '../utils/localstorage.js'
-Vue.use(VueI18N)
+import VueI18n from 'vue-i18n'
+import en from './en'
+import cn from './cn'
+import { getLocale, saveLocale } from '../utils/localStorage'
+
+Vue.use(VueI18n)
+
 const messages = {
-  EN,
-  CN
+  en, cn
 }
+
 let locale = getLocale()
 if (!locale) {
-  locale = 'CN'
+  locale = 'cn'
   saveLocale(locale)
 }
-const i18n = new VueI18N({
+
+const i18n = new VueI18n({
   locale,
   messages
 })
+
 export default i18n
